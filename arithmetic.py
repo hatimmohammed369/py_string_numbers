@@ -1,7 +1,7 @@
 def split_number(a):
     if not isinstance(a, str):
-        raise TypeError('non-string value for argument (a),'
-                        ' argument (a) type:'+str(type(a)))
+        raise TypeError('non-string value for parameter (a),'
+                        ' parameter (a) type:'+str(type(a)))
 
     if len(a) == 0:
         a = '0.0'
@@ -15,10 +15,10 @@ def split_number(a):
 
 def remove_zeros_from(s, where):
     if not isinstance(s, str):
-        raise TypeError('non-string value for argument (s), argument (s) type:'+str(type(s)))
+        raise TypeError('non-string value for parameter (s), parameter (s) type:'+str(type(s)))
 
     if not isinstance(where, str):
-        raise TypeError('non-string value for argument (where), argument (where) type:'+str(type(where)))
+        raise TypeError('non-string value for parameter (where), parameter (where) type:'+str(type(where)))
 
     if where != 'left' and where != 'right':
         raise ValueError('(where) is (left) or (right) only:'+where)
@@ -40,11 +40,11 @@ def remove_zeros_from(s, where):
 
 def remove_all_zeros(s, is_number):
     if not isinstance(s, str):
-        raise TypeError('non-string value for argument (s),  argument (s) type:'+str(type(s)))
+        raise TypeError('non-string value for parameter (s),  parameter (s) type:'+str(type(s)))
 
     if not isinstance(is_number, bool):
-        raise TypeError('non-bool value for argument (is_number), '
-                        'argument (is_number) type:'+str(type(is_number)))
+        raise TypeError('non-bool value for parameter (is_number), '
+                        'parameter (is_number) type:'+str(type(is_number)))
 
     if is_number:
         l = split_number(s)
@@ -56,14 +56,14 @@ def remove_all_zeros(s, is_number):
 
 def number_string_type(s):
     if not isinstance(s, str):
-        raise TypeError('non-string value for argument (s), argument (s) type:'+str(type(s)))
+        raise TypeError('non-string value for parameter (s), parameter (s) type:'+str(type(s)))
 
     if len(s) == 0:
         raise ValueError('empty string (s)')
 
     def is_real_number_string(s):
         if not isinstance(s, str):
-            raise TypeError('non-string value for argument (s), argument (s) type:' + str(type(s)))
+            raise TypeError('non-string value for parameter (s), parameter (s) type:' + str(type(s)))
 
         if len(s) == 0:
             raise ValueError('empty string (s)')
@@ -87,14 +87,14 @@ def number_string_type(s):
 
 def fill(s, where, length):
     if not isinstance(s, str):
-        raise TypeError('non-string value for argument (s), argument (s) type:'+str(type(s)))
+        raise TypeError('non-string value for parameter (s), parameter (s) type:'+str(type(s)))
 
     if not isinstance(where, str):
-        raise TypeError('non-string value for argument (where), argument (where) type::'+str(type(where)))
+        raise TypeError('non-string value for parameter (where), parameter (where) type::'+str(type(where)))
 
     if not isinstance(length, int):
-        raise TypeError('non-integer value for argument (length),'
-                        ' argument (length) type:'+str(type(length)))
+        raise TypeError('non-integer value for parameter (length),'
+                        ' parameter (length) type:'+str(type(length)))
 
     if where != 'left' and where != 'right':
         raise ValueError('(where) is (left) or (right) only:'+where)
@@ -113,7 +113,7 @@ def fill(s, where, length):
 
 def realize_fill(a, int_part_length, decimal_part_length):
     if not isinstance(a, str):
-        raise TypeError('non-string value for argument (a), argument (a) type:' + str(type(a)))
+        raise TypeError('non-string value for parameter (a), parameter (a) type:' + str(type(a)))
 
     if number_string_type(a) == 'non-numeric':
         raise ValueError('string ' + a + ' contains non-numeric characters')
@@ -128,10 +128,10 @@ def realize_fill(a, int_part_length, decimal_part_length):
 
 def compare(a, b):
     if not isinstance(a, str):
-        raise TypeError('non-string value for argument (a), argument (a) type:'+str(type(a)))
+        raise TypeError('non-string value for parameter (a), parameter (a) type:'+str(type(a)))
 
     if not isinstance(b, str):
-        raise TypeError('non-string value for argument (b), argument (b) type:'+str(type(b)))
+        raise TypeError('non-string value for parameter (b), parameter (b) type:'+str(type(b)))
 
     if len(a) == 0:
         raise ValueError('empty string (a)')
@@ -208,10 +208,10 @@ def compare(a, b):
 
 def add(a, b):
     if not isinstance(a, str):
-        raise TypeError('non-string value for argument (a), argument (a) type:'+str(type(a)))
+        raise TypeError('non-string value for parameter (a), parameter (a) type:'+str(type(a)))
 
     if not isinstance(b, str):
-        raise TypeError('non-string value for argument (b), argument (b) type:'+str(type(b)))
+        raise TypeError('non-string value for parameter (b), parameter (b) type:'+str(type(b)))
 
     if len(a) == 0:
         raise ValueError('empty string (a)')
@@ -276,9 +276,8 @@ def add(a, b):
     sign = ((c == 1 and a_negative) or (c == -1 and b_negative)) * '-'
 
     if c == -1:  # |a| < |b|
-        temp = a
-        a = b
-        b = temp
+        a, b = b, a
+
     a_map = {}
     for i in range(0, len(a)):
         if a[i] == '.':
@@ -318,10 +317,10 @@ def sub(a, b):
 
 def mul(a, b):
     if not isinstance(a, str):
-        raise TypeError('non-string value for argument (a), argument (a) type:'+str(type(a)))
+        raise TypeError('non-string value for parameter (a), parameter (a) type:'+str(type(a)))
 
     if not isinstance(b, str):
-        raise TypeError('non-string value for argument (b), argument (b) type:'+str(type(b)))
+        raise TypeError('non-string value for parameter (b), parameter (b) type:'+str(type(b)))
 
     if len(a) == 0:
         raise ValueError('empty string (a)')
@@ -382,29 +381,31 @@ def mul(a, b):
 
     c = compare(a, b)
     if c == -1:  # |a| < |b|
-        temp = b
-        b = a
-        a = temp
+        b, a = a, b
 
     result = '0'
-    for i in range(0, len(b)):
-        if b[i] == '.' or b[i] == '0':
-            continue
-        b_digit = int(b[i])
-        inner_carry = 0
-        inner_result = (len(b) - (i + 1)) * '0'
-
-        for j in range(len(a)-1, -1, -1):
-            if a[j] == '.':
+    if a == '1' or b == '1':
+        result = a if b == '1' else b
+    else:
+        for i in range(0, len(b)):
+            if b[i] == '.' or b[i] == '0':
                 continue
-            x = str(inner_carry + b_digit * int(a[j]))
-            if len(x) == 1:
-                x = '0' + x
-            inner_result = x[1] + inner_result
-            inner_carry = int(x[0])
-        inner_result = ((inner_carry != 0) * str(inner_carry)) + inner_result
-        result = add(result, inner_result)
-    result = remove_zeros_from(result[0:result.find('.')], 'left')
+            b_digit = int(b[i])
+            inner_carry = 0
+            inner_result = (len(b) - (i + 1)) * '0'
+
+            for j in range(len(a)-1, -1, -1):
+                if a[j] == '.':
+                    continue
+                x = str(inner_carry + b_digit * int(a[j]))
+                if len(x) == 1:
+                    x = '0' + x
+                inner_result = x[1] + inner_result
+                inner_carry = int(x[0])
+            inner_result = ((inner_carry != 0) * str(inner_carry)) + inner_result
+            result = add(result, inner_result)
+        result = remove_zeros_from(result[0:result.find('.')], 'left')
+
     if exponent > 0:
         return remove_all_zeros(sign + result + (exponent * '0') + '.0', True)
     elif exponent < 0:
@@ -420,3 +421,136 @@ def mul(a, b):
                 return remove_all_zeros(result, True)
     return sign + result + '.0'
 
+
+def int_reciprocal(n, decimal_part_length):
+    if not isinstance(n, str):
+        raise TypeError('parameter (n) must be of type str, provided type:'+str(type(n)))
+
+    if number_string_type(n) != 'Z' or n.__contains__('-') or n.__contains__('.'):
+        raise TypeError('string '+n+' is not a positive integer string')
+
+    if not isinstance(decimal_part_length, int):
+        raise TypeError('parameter (decimal_part_length) must be of type int,'
+                        ' provided type:' + str(type(decimal_part_length)))
+
+    if decimal_part_length < 0:
+        raise ValueError('parameter (decimal_part_length) must be a positive integer')
+
+    negative = n.startswith('-')
+    if negative:
+        n = n[1:]
+    n = remove_zeros_from(n, 'left')
+    if n == '0':
+        raise ZeroDivisionError()
+
+    if n == '1':
+        return (negative * '-') + '1.0'
+
+    one = '1'
+    result = ''
+    while True:
+        if len(result) > decimal_part_length or one == '0':
+            return (negative * '-') + '0.' + result[0:decimal_part_length+1]
+
+        zeros = 0
+        while compare(one, n) == -1:  # while one < n
+            one = one + '0'
+            zeros = zeros + 1
+        result = result + ((zeros-1) * '0')
+
+        r = '0.0'
+        while compare(one, n) != -1:
+            one = sub(one, n)
+            r = add(r, '1')
+        r = r[0:r.find('.')]
+        one = remove_all_zeros(one, True)
+        if one.__contains__('.'):
+            one = one[0:one.find('.')]
+        result = result + r
+
+
+def div(a, b, decimal_part_length):
+    if not isinstance(a, str):
+        raise TypeError('non-string value for parameter (a), parameter (a) type:'+str(type(a)))
+
+    if not isinstance(b, str):
+        raise TypeError('non-string value for parameter (b), parameter (b) type:'+str(type(b)))
+
+    if len(a) == 0:
+        raise ValueError('empty string (a)')
+
+    if len(b) == 0:
+        raise ValueError('empty string (b)')
+
+    if number_string_type(a) == 'non-numeric':
+        raise ValueError('string ' + a + ' contains non-numeric characters')
+
+    if number_string_type(b) == 'non-numeric':
+        raise ValueError('string ' + b + ' contains non-numeric characters')
+
+    a_negative = a.startswith('-')
+    if a_negative:
+        a = a[1:]
+
+    b_negative = b.startswith('-')
+    if b_negative:
+        b = b[1:]
+
+    if not a.__contains__('.'):
+        a = a + '.0'
+    if not b.__contains__('.'):
+        b = b + '.0'
+
+    a = remove_all_zeros(a, True)
+    b = remove_all_zeros(b, True)
+
+    if b == '0.0':
+        raise ZeroDivisionError()
+
+    sign = (a_negative != b_negative) * '-'
+    if b == '1.0':
+        return sign + a
+
+    if a == '0.0':
+        return '0.0'
+
+    if a[a.find('.')+1:] == '0' and b[b.find('.')+1:] == '0':
+        a = a[0:a.find('.')]
+        b = b[0:b.find('.')]
+        exp = 0
+        for i in range(len(a)-1, -1, -1):
+            if a[i] != '0':
+                a = a[0:i+1]
+                break
+            exp += 1
+        for i in range(len(b)-1, -1, -1):
+            if b[i] != '0':
+                b = b[0:i+1]
+                break
+            exp -= 1
+        result = a
+        if b != '1':
+            r = '0'
+            while compare(result, b) != -1:  # while result >= a
+                result = sub(result, b)
+                r = add(r, '1')
+            remainder = result[0:result.find('.')]
+            result = r
+            if compare(remainder, '0') != 0:
+                result = add(result, mul(remainder, int_reciprocal(b, decimal_part_length)) )
+            if exp != 0:
+                result = mul(result, ('1' + (exp * '0')) if exp > 0 else ('0.' + fill('1', 'left', -exp) ) )
+        return sign + result
+
+
+    b_decimal_part = b[b.find('.')+1:]
+    if b_decimal_part == '0':
+        b = b[0:b.find('.')]
+        return sign + mul(a, int_reciprocal(b, decimal_part_length))
+
+    new_decimal_part_length = len(b_decimal_part)
+    if b[0:b.find('.')] == '0':
+        b = b[b.find('.')+1:]
+    else:
+        b = b.replace('.', '')
+    return sign + mul(div(a, b, decimal_part_length) , '1' + (new_decimal_part_length * '0'))
